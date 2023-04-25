@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"
 
 function Login ({ onLogin }) {
   const [credentials, setCredentials] = useState({
@@ -49,7 +50,7 @@ function Login ({ onLogin }) {
           Don't have an account?
         </small>
         <br />
-        <button>Signup</button>
+        <Link id="signup" to="/signup">Signup</Link>
 
       </form>
     </div>
