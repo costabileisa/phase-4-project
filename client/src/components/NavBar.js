@@ -1,32 +1,43 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 
-function NavBar() {
-    const style = {
-        background: "#ffd1dc",
-    }
-    return (
-        <div className="navbar">
-            <NavLink 
-            exact to="/"
-            activeStyle={style}
-            >
-                Home
-            </NavLink>
-            <NavLink 
-            to="/about"
-            activeStyle={style}
-            >
-                About
-            </NavLink>
-            <NavLink
-            to="/login"
-            activeStyle={style}
-            >
-                Login
-            </NavLink>
-        </div>
-    )
+function NavBar({ user, onLogout }) {
+  const history = useHistory()
+
+  const style = {
+      background: "#ffd1dc",
+  }
+
+  function handleLogout() {
+    fetch("/logout", {
+      method: "DELETE",
+    }).then(() => onLogout());
+  }
+
+  function loginButton() {
+    history.push("/login")
+  }
+
+  return (
+    <div className="navbar">
+      <NavLink 
+      exact to="/"
+      activeStyle={style}
+      >
+        Home
+      </NavLink>
+      <NavLink 
+      to="/about"
+      activeStyle={style}
+      >
+        About
+      </NavLink>
+      {user ? 
+      <button style={{float: "right"}} onClick={handleLogout}>Logout</button> :
+      <button style={{float: "right"}} onClick={loginButton}>Login</button>
+      }
+    </div>
+  )
 }
 
 export default NavBar

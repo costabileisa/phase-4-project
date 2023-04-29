@@ -1,30 +1,31 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
 
-function Login ({ onLogin }) {
+function Login ({ onLogin }) {  
   const [credentials, setCredentials] = useState({
     username: "",
     password: ""
   })
 
   function handleChange(e) {
-    setCredentials({ [e.target.id]: e.target.value });
+    setCredentials({ ...credentials, [e.target.id]: e.target.value });
   };
 
   function handleSubmit(e) {
-    const username = credentials.username
     e.preventDefault();
     fetch("/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ username }),
+      body: JSON.stringify(credentials),
     })
     .then((response) => {
       if (response.ok) {
         response.json()
-        .then((user) => onLogin(user));
+        .then((user) => {
+          onLogin(user)
+        });
       }
     })
   }
