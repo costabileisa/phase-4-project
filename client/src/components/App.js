@@ -53,7 +53,7 @@ function App() {
               <Route path ="/login">
                   <Login onLogin={onLogin} />
               </Route>
-              <Route path="/signup">
+              <Route path="/signup" onLogin={onLogin}>
                 <SignUp />
               </Route>
           </Switch>

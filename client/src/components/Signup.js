@@ -8,22 +8,21 @@ function SignUp({ onLogin }) {
   })
 
   function handleChange(e) {
-    setCredentials({ [e.target.id]: e.target.value });
+    setCredentials({...credentials, [e.target.id]: e.target.value });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    fetch("/signup", {
+    console.log(credentials)
+    fetch("/users", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        credentials
-      }),
+      body: JSON.stringify({credentials}),
     })
       .then((r) => r.json())
-      .then(onLogin);
+      .then(user => onLogin(user));
   }
 
   return (
