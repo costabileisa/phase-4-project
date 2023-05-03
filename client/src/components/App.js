@@ -12,24 +12,24 @@ function App() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    fetch("/me").then((response) => {
+    fetch("/me")
+    .then((response) => {
       if (response.ok) {
-        response.json().then((user) => setUser(user));
+        response.json()
+        .then((user) => setUser(user));
       }
     });
   }, []);
 
   function onLogout() {
     setUser(null)
-    history.push("/")
+    history.push("/login")
   }
 
   function onLogin(login) {
     setUser(login)
     history.push("/")
   }
-
-  console.log(user)
 
   if (user) {
     return (
@@ -53,8 +53,8 @@ function App() {
               <Route path ="/login">
                   <Login onLogin={onLogin} />
               </Route>
-              <Route path="/signup" onLogin={onLogin}>
-                <SignUp />
+              <Route path="/signup">
+                <SignUp  onLogin={onLogin} />
               </Route>
           </Switch>
       </div>

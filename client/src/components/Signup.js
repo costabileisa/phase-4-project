@@ -6,6 +6,7 @@ function SignUp({ onLogin }) {
     password: "",
     password_confirmation: ""
   })
+  const [errors, setErrors] = useState([])
 
   function handleChange(e) {
     setCredentials({...credentials, [e.target.id]: e.target.value });
@@ -19,10 +20,17 @@ function SignUp({ onLogin }) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({credentials}),
+      body: JSON.stringify(credentials),
+    })    
+    .then((r) => {
+      if (r.ok) {
+        r.json()
+        .then((user) => onLogin(user));
+      } else {
+        r.json()
+        .then(err => setErrors(err.errors))
+      }
     })
-      .then((r) => r.json())
-      .then(user => onLogin(user));
   }
 
   return (
@@ -49,6 +57,9 @@ function SignUp({ onLogin }) {
         onChange={handleChange}
       />
       <input type="submit"/>
+      <br></br>
+      {errors.map(err => {
+        return <small key={err}>{err}</small>})}
     </form>
   );
 }
