@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Switch, Route, useHistory } from "react-router-dom";
 
 import NavBar from './NavBar';
 import Home from "./Home";
 import Login from "./Login";
 import SignUp from "./SignUp";
+import { UserContext } from "../context/user";
 
 function App() {
   const history = useHistory();
 
-  const [user, setUser] = useState(null);
+  const { user, setUser } = useContext(UserContext);
 
   useEffect(() => {
     fetch("/me")
@@ -34,7 +35,7 @@ function App() {
   if (user) {
     return (
       <div className="App">
-          <NavBar user={user} onLogout={onLogout} />
+          <NavBar onLogout={onLogout} />
           <Switch>
               <Route exact path ="/">
                   <Home />

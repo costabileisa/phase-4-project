@@ -59,7 +59,8 @@ function SignUp({ onLogin }) {
       <input type="submit"/>
       <br></br>
       {errors.map(err => {
-        return <small key={err}>{err}</small>})}
+        return <small key={err}>{err}</small>}
+        )}
     </form>
   );
 }

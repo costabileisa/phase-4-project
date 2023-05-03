@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NavLink, useHistory } from "react-router-dom";
+import { UserContext } from "../context/user";
 
-function NavBar({ user, onLogout }) {
+function NavBar({ onLogout }) {
   const history = useHistory()
+
+  const { user } = useContext(UserContext)
 
   const style = {
       background: "#ffd1dc",

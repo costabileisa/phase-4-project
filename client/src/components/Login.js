@@ -6,6 +6,7 @@ function Login ({ onLogin }) {
     username: "",
     password: ""
   })
+  const [errors, setErrors] = useState([])
 
   function handleChange(e) {
     setCredentials({ ...credentials, [e.target.id]: e.target.value });
@@ -20,12 +21,15 @@ function Login ({ onLogin }) {
       },
       body: JSON.stringify(credentials),
     })
-    .then((response) => {
-      if (response.ok) {
-        response.json()
+    .then((r) => {
+      if (r.ok) {
+        r.json()
         .then((user) => {
           onLogin(user)
         });
+      } else {
+        r.json()
+        .then(err => setErrors(err.errors))
       }
     })
   }
@@ -47,10 +51,10 @@ function Login ({ onLogin }) {
         />
         <input value="Login" type="submit" />
         <br />
-        <small>
+        { errors ? <small>{errors}</small> : null}
+        <h3 style={{margin: "0px"}}>
           Don't have an account?
-        </small>
-        <br />
+        </h3>
         <Link id="signup" to="/signup">Signup</Link>
 
       </form>
