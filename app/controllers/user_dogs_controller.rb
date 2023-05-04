@@ -10,4 +10,12 @@ class UserDogsController < ApplicationController
       render json: user.dogs, status: :created
     end
   end
+
+  def destroy
+    association = UserDog.find_by(user_id: session[:user_id])
+    association.destroy
+
+    head :no_content
+  end
+
 end
