@@ -20,10 +20,8 @@ function Dogs() {
     })
   }, [])
 
-  console.log(dogs)
-
   return (
-    <div className="available-dogs">
+    <div className="all-dogs">
       <h1>All Dogs</h1>
       <DogCards dogs={dogs} />
     </div>

@@ -4,7 +4,6 @@ import { UserContext } from "../context/user"
 
 function Profile() {
   const { user, setUser } = useContext(UserContext)
-  console.log(user)
 
   const [errors, setErrors] = useState([])
   const [credentials, setCredentials] = useState({
