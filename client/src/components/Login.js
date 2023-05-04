@@ -56,7 +56,6 @@ function Login ({ onLogin }) {
           Don't have an account?
         </h3>
         <Link id="signup" to="/signup">Signup</Link>
-
       </form>
     </div>
   );

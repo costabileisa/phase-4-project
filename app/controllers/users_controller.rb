@@ -1,7 +1,6 @@
 class UsersController < ApplicationController
   def create
     user = User.create!(user_params)
-    puts user
     if user.valid?
       render json: user, status: :created
     else
@@ -17,6 +16,16 @@ class UsersController < ApplicationController
       render json: { error: "Not authorized" }, status: :unauthorized
     end
   end
+
+  def update
+    user = User.find(session[:user_id])
+    user.update(
+      username: params[:username],
+      bio: params[:bio]
+    )
+    render json:user, status: :ok
+  end
+  
 
   private
 

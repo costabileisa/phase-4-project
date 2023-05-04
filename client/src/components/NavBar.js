@@ -30,10 +30,10 @@ function NavBar({ onLogout }) {
         Home
       </NavLink>
       <NavLink 
-      to="/about"
+      to="/dogs"
       activeStyle={style}
       >
-        About
+        Available Dogs
       </NavLink>
       {user ? 
       <button style={{float: "right"}} onClick={handleLogout}>Logout</button> :
