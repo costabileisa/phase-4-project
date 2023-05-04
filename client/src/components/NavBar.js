@@ -8,7 +8,7 @@ function NavBar({ onLogout }) {
   const { user } = useContext(UserContext)
 
   const style = {
-      background: "#ffd1dc",
+    background: "#ffd1dc",
   }
 
   function handleLogout() {
@@ -23,28 +23,35 @@ function NavBar({ onLogout }) {
 
   return (
     <div className="navbar">
-      <NavLink 
-      exact to="/"
-      activeStyle={style}
+      <NavLink
+        exact to="/"
+        activeStyle={style}
       >
         Home
       </NavLink>
-      <NavLink 
-      to="/dogs"
-      activeStyle={style}
+      <NavLink
+        to="/dogs"
+        activeStyle={style}
       >
         All Dogs
       </NavLink>
       <NavLink
-      to="/profile"
+      to="/users"
       activeStyle={style}
-      style={{float: "right"}}
       >
-        Profile
+        All Users
       </NavLink>
-      {user ? 
-      <button style={{float: "right"}} onClick={handleLogout}>Logout</button> :
-      <button style={{float: "right"}} onClick={loginButton}>Login</button>
+      {user ?
+        <>
+          <NavLink
+            to="/profile"
+            activeStyle={style}
+            style={{ float: "right" }}
+          >
+            Profile
+          </NavLink>
+          <button style={{ float: "right" }} onClick={handleLogout}>Logout</button></> :
+        <button style={{ float: "right" }} onClick={loginButton}>Login</button>
       }
     </div>
   )

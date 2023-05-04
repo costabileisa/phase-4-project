@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   get "/me", to: "users#show"
   
-  resources :users, only: [:show, :create, :update, :destroy]
+  resources :users, only: [:index, :show, :create, :update, :destroy]
   resources :dogs, only: [:index]
   resources :user_dogs, only: [:create]
 

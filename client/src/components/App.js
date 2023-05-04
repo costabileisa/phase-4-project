@@ -7,6 +7,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Dogs from "./Dogs"
 import Profile from "./Profile"
+import AllUsers from './AllUsers';
 
 import { UserContext } from "../context/user";
 
@@ -55,6 +56,9 @@ function App() {
               <Route path="/profile">
                 <Profile />
               </Route>
+              <Route path="/users">
+                <AllUsers />
+              </Route>
           </Switch>
       </div>
   )
@@ -71,6 +75,9 @@ function App() {
               </Route>
               <Route path="/signup">
                 <SignUp  onLogin={onLogin} />
+              </Route>
+              <Route path="/users">
+                <AllUsers />
               </Route>
           </Switch>
       </div>
