@@ -7,16 +7,17 @@
     "node": "16.x"
   },
   "dependencies": {
+    "@emotion/react": "^11.10.8",
+    "@emotion/styled": "^11.10.8",
+    "@mui/icons-material": "^5.11.16",
+    "@mui/material": "^5.12.3",
     "@testing-library/jest-dom": "^5.13.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "react": "^17.0.2",
     "react-router": "^6.10.0",
     "react-router-dom": "^5.3.4",
-    "react-scripts": "4.0.3",
-    "@emotion/react": "^11.10.8",
-    "@emotion/styled": "^11.10.8",
-    "@mui/material": "^5.12.3"
+    "react-scripts": "4.0.3"
   },
   "scripts": {
     "start": "PORT=4000 react-scripts start",
