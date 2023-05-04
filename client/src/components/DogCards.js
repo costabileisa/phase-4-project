@@ -13,43 +13,39 @@ function DogCards({ dogs }) {
 
   const handleLike = (e) => {
     const imageId = e.target.parentNode.parentNode.previousSibling.id;
-    
+
     fetch("/user_dogs", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        user_id: parseInt(user.id), 
+        user_id: parseInt(user.id),
         dog_id: parseInt(imageId)
       })
     })
-    .then(r => {
-      if (r.ok) {
-        r.json()
-        .then(updatedUser => {
-          setUser(updatedUser);
-        })
-      } else {
-        r.json()
-        .then(err => setErrors(err.errors))
-      }
-    })
-    
-    console.log(`Liked image with id ${imageId}`);
+      .then(r => {
+        if (r.ok) {
+          r.json()
+            .then(updatedDogs => {
+              console.log(updatedDogs)
+              setUser({...user, dogs: updatedDogs});
+              e.target.style.color = "red";
+            })
+        } else {
+          r.json()
+            .then(err => setErrors(err.errors))
+        }
+      })
   };
+
+  console.log("dogcards user", user)
 
   console.log(errors)
 
   return (
-    <ImageList sx={{ width: "100%", height: "500px"}} cols={5} rowHeight={200}>
+    <ImageList sx={{ width: "100%", height: "500px" }} cols={5} rowHeight={200}>
       {itemData.map((item) => {
-        let isLiked = false
-        
-        if (user.dogs && user.dogs.some(dog => dog.id === item.id)) {
-          isLiked = true
-        }
-        
         return (
           <ImageListItem key={item.id}>
             <img
@@ -67,8 +63,14 @@ function DogCards({ dogs }) {
               }}
               id={item.id}
             />
-            <IconButton onClick={handleLike} aria-label="like" sx={{ position: 'absolute', bottom: 10, right: 10 }}>
-              <FavoriteIcon sx={{ color: isLiked ? 'red' : 'inherit' }} />
+            <IconButton onClick={(e) => handleLike(e)} aria-label="like" sx={{ position: 'absolute', bottom: 10, right: 10 }}>
+              <FavoriteIcon
+                sx={
+                  user && user.dogs && user.dogs.some(dog => dog.id === item.id)
+                    ? { color: "red" }
+                    : { color: "inherit" }
+                }
+              />            
             </IconButton>
           </ImageListItem>
         )
