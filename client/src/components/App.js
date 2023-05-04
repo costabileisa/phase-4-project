@@ -8,6 +8,7 @@ import SignUp from "./SignUp";
 import Dogs from "./Dogs"
 import Profile from "./Profile"
 import AllUsers from './AllUsers';
+import UserDogs from './UserDogs'
 
 import { UserContext } from "../context/user";
 
@@ -56,6 +57,9 @@ function App() {
               <Route path="/profile">
                 <Profile />
               </Route>
+              <Route path="favorites">
+                <UserDogs />
+              </Route>
               <Route path="/users">
                 <AllUsers />
               </Route>
@@ -69,6 +73,9 @@ function App() {
           <Switch>
               <Route exact path ="/">
                   <Home />
+              </Route>
+              <Route path ="/dogs">
+                <Dogs />
               </Route>
               <Route path ="/login">
                   <Login onLogin={onLogin} />

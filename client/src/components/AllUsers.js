@@ -13,7 +13,7 @@ function AllUsers() {
   return(
     <div className="all-users">
       <h1>All Current Users</h1>
-      {allUsers ? allUsers.map(user => <p>{user.username}</p>) : null}
+      {allUsers ? allUsers.map(user => <p key={user.username}>{user.username}</p>) : null}
     </div>
   )
 }

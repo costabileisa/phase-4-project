@@ -45,8 +45,4 @@ class UsersController < ApplicationController
   def user_params
     params.permit(:username, :password, :password_confirmation)
   end
-
-  def authenticate_user
-    render json: { error: "Unauthorized" }, status: 401 unless current_user
-  end
 end

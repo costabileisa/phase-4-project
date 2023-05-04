@@ -35,9 +35,16 @@ function NavBar({ onLogout }) {
       >
         All Dogs
       </NavLink>
+      {user ?
+        <NavLink
+          to="favorites"
+          activeStyle={style}
+        >
+          My Dogs
+        </NavLink> : null}
       <NavLink
-      to="/users"
-      activeStyle={style}
+        to="/users"
+        activeStyle={style}
       >
         All Users
       </NavLink>

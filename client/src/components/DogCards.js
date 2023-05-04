@@ -60,7 +60,7 @@ function DogCards({ dogs }) {
               }}
               id={item.id}
             />
-            <IconButton onClick={(e) => handleLike(e)} aria-label="like" sx={{ position: 'absolute', bottom: 10, right: 10 }}>
+            <IconButton onClick={(e) => user ? handleLike(e) : alert("You're not logged in!")} aria-label="like" sx={{ position: 'absolute', bottom: 10, right: 10 }}>
               <FavoriteIcon
                 sx={
                   user && user.dogs && user.dogs.some(dog => dog.id === item.id)
