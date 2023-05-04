@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def show
     user = User.find(session[:user_id])
     if user
-      render json: user
+      render json: user, include: :dogs
     else
       render json: { error: "Not authorized" }, status: :unauthorized
     end
@@ -24,6 +24,13 @@ class UsersController < ApplicationController
       bio: params[:bio]
     )
     render json:user, status: :ok
+  end
+
+  def destroy
+    user = User.find(session[:user_id])
+    user.destroy
+
+    head :no_content
   end
   
 
