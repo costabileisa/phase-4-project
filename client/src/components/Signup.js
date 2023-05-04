@@ -14,7 +14,6 @@ function SignUp({ onLogin }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(credentials)
     fetch("/users", {
       method: "POST",
       headers: {

@@ -35,6 +35,13 @@ function NavBar({ onLogout }) {
       >
         All Dogs
       </NavLink>
+      <NavLink
+      to="/profile"
+      activeStyle={style}
+      style={{float: "right"}}
+      >
+        Profile
+      </NavLink>
       {user ? 
       <button style={{float: "right"}} onClick={handleLogout}>Logout</button> :
       <button style={{float: "right"}} onClick={loginButton}>Login</button>

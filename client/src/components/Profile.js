@@ -1,8 +1,10 @@
 import React, { useContext, useState } from "react"
+import { useHistory } from "react-router-dom"
 
 import { UserContext } from "../context/user"
 
 function Profile() {
+  const history = useHistory()
   const { user, setUser } = useContext(UserContext)
 
   const [errors, setErrors] = useState([])
@@ -17,7 +19,6 @@ function Profile() {
   };
 
   function handleSubmit(e) {
-    console.log(credentials)
     e.preventDefault();
     fetch(`/users/${user.id}`, {
       method: "PATCH",
@@ -44,6 +45,16 @@ function Profile() {
     })
   }
 
+  function handleDelete() {
+    fetch(`/users/${user.id}`, {
+      method: "DELETE",
+    })
+    .then(() => {
+      setUser(null)
+      history.push("/signup")
+    })
+  }
+
   return (
     <div className="Profile">
       <form className="form" onSubmit={handleSubmit} >
@@ -67,7 +78,7 @@ function Profile() {
         { errors ? <small>{errors}</small> : null}
       </form>
       <button onClick={() => setDisabled(false)}>Edit Info</button>
-      <button onClick={() => {}}>Delete Account</button>
+      <button onClick={() => handleDelete()}>Delete Account</button>
     </div>
   )
 

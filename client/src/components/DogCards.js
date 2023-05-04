@@ -28,7 +28,6 @@ function DogCards({ dogs }) {
         if (r.ok) {
           r.json()
             .then(updatedDogs => {
-              console.log(updatedDogs)
               setUser({...user, dogs: updatedDogs});
               e.target.style.color = "red";
             })
