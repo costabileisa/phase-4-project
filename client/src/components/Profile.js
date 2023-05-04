@@ -67,7 +67,7 @@ function Profile() {
         { errors ? <small>{errors}</small> : null}
       </form>
       <button onClick={() => setDisabled(false)}>Edit Info</button>
-      <button>Delete Account</button>
+      <button onClick={() => {}}>Delete Account</button>
     </div>
   )
 

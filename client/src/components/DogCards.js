@@ -39,8 +39,6 @@ function DogCards({ dogs }) {
       })
   };
 
-  console.log("dogcards user", user)
-
   console.log(errors)
 
   return (

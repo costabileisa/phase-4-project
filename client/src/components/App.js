@@ -30,7 +30,6 @@ function App() {
       }
     });
   }, []);
-  console.log("app", user)
 
   function onLogout() {
     setUser(null)
