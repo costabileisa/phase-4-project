@@ -33,7 +33,7 @@ function NavBar({ onLogout }) {
       to="/dogs"
       activeStyle={style}
       >
-        Available Dogs
+        All Dogs
       </NavLink>
       {user ? 
       <button style={{float: "right"}} onClick={handleLogout}>Logout</button> :
