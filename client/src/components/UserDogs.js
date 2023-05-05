@@ -11,16 +11,12 @@ function UserDogs() {
   const { dogs } = useContext(DogsContext)
 
   function handleClick(e) {
-    const updatedDogs = user.dogs.filter(dog => dog.dogid !== e.target.id)
+    const updatedDogs = user.dogs.filter(dog => dog.id !== parseInt(e.target.title))
+    const updatedUserDogs = user.user_dogs.filter(userDog => parseInt(userDog.id) !== parseInt(e.target.id))
     fetch(`/user_dogs/${e.target.id}`, {
       method: "DELETE"
     })
-      .then(() => {
-        setUser(prevUser => ({
-          ...prevUser,
-          dogs: updatedDogs
-        }))
-      })
+      .then(() => setUser(prevUser => ({ ...prevUser, dogs: updatedDogs, user_dogs: updatedUserDogs })))
   }
 
   function handleSubmit(e) {
@@ -33,17 +29,15 @@ function UserDogs() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify({name: e[1]})
+        body: JSON.stringify({ name: e[1] })
       })
-      .then(r => {
+        .then(r => {
           if (r.ok) {
             r.json()
-            .then(d => newUserDogs.push(d))
+              .then(d => newUserDogs.push(d))
           }
         })
     })
-
-    console.log(newUserDogs)
   }
 
   function handleChange(e) {
@@ -55,14 +49,14 @@ function UserDogs() {
       <h1>{user.username}'s Dogs</h1>
       <p>Click an image to remove from your favorites</p>
       <form onSubmit={handleSubmit}>
-      {disabled ? <button onClick={() => setDisabled(!disabled)}>{disabled ? "Edit" : "Done"}</button> : <button onClick={() => setDisabled(!disabled)} type="submit" >{disabled ? "Edit" : "Done"}</button>}
+        {disabled ? <button onClick={() => setDisabled(!disabled)}>{disabled ? "Edit" : "Done"}</button> : <button onClick={() => setDisabled(!disabled)} type="submit" >{disabled ? "Edit" : "Done"}</button>}
       </form>
       {user.user_dogs.map(userDog => {
         let dog;
         dog = dogs ? dogs.find(dog => parseInt(dog.id) === parseInt(userDog.dog_id)) : dog
         return (
           <div key={userDog.id}>
-            <img onClick={e => handleClick(e)} id={userDog.id} src={dogs ? dog.url : ""} alt="image from https://thedogapi.com/" />
+            <img onClick={e => handleClick(e)} id={userDog.id} title={dogs ? dog.id : null} src={dogs ? dog.url : ""} alt="image from https://thedogapi.com/" />
             <input onChange={handleChange} type="text" value={userDog.name} id={userDog.id} placeholder="Name" disabled={disabled} />
           </div>
         )

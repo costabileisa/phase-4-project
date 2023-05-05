@@ -12,7 +12,6 @@ function DogCards() {
   const [errors, setErrors] = useState([])
   const { user, setUser } = useContext(UserContext);
   const { dogs } = useContext(DogsContext)
-  const itemData = dogs;
 
   if (errors.length > 0) console.log("Errors:", errors)
 
@@ -33,7 +32,8 @@ function DogCards() {
         if (r.ok) {
           r.json()
             .then(updatedDogs => {
-              setUser({...user, dogs: updatedDogs});
+              console.log(updatedDogs)
+              setUser(() => ({...user, dogs: updatedDogs}));
               e.target.style.color = "red";
             })
         } else {
@@ -45,13 +45,13 @@ function DogCards() {
 
   return (
     <ImageList sx={{ width: "100%", height: "500px" }} cols={5} rowHeight={200}>
-      {itemData.map((item) => {
+      {dogs ? dogs.map((dog) => {
         return (
-          <ImageListItem key={item.id}>
+          <ImageListItem key={dog.id}>
             <img
-              src={`${item.url}?w=164&h=164&fit=crop&auto=format`}
-              srcSet={`${item.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
-              alt={item.url}
+              src={`${dog.url}?w=164&h=164&fit=crop&auto=format`}
+              srcSet={`${dog.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+              alt={dog.url}
               loading="lazy"
               onMouseOver={(event) => {
                 event.target.style.cursor = "pointer";
@@ -61,12 +61,12 @@ function DogCards() {
                 event.target.style.cursor = "default";
                 event.target.style.opacity = 1;
               }}
-              id={item.id}
+              id={dog.id}
             />
             <IconButton onClick={(e) => user ? handleLike(e) : alert("You're not logged in!")} aria-label="like" sx={{ position: 'absolute', bottom: 10, right: 10 }}>
               <FavoriteIcon
                 sx={
-                  user && user.dogs && user.dogs.some(dog => dog.id === item.id)
+                  user && user.dogs && user.dogs.some(d => d.id === dog.id)
                     ? { color: "red" }
                     : { color: "inherit" }
                 }
@@ -74,7 +74,9 @@ function DogCards() {
             </IconButton>
           </ImageListItem>
         )
-      })}
+      })
+      : null
+      }
     </ImageList>
   );
 }

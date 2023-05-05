@@ -25,13 +25,7 @@ class UserDogsController < ApplicationController
   end
 
   def destroy
-    user = User.find(session[:user_id])
-    dog = user.dogs.find_by(dogid: params[:id]).id
-
-    user_dog = UserDog.find_by({
-      user_id: session[:user_id],
-      dog_id: dog
-    })
+    user_dog = UserDog.find(params[:id])
     user_dog.destroy
 
     head :no_content
