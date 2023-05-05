@@ -37,7 +37,7 @@ function NavBar({ onLogout }) {
       </NavLink>
       {user ?
         <NavLink
-          to="favorites"
+          to="/favorites"
           activeStyle={style}
         >
           My Dogs
@@ -47,6 +47,12 @@ function NavBar({ onLogout }) {
         activeStyle={style}
       >
         All Users
+      </NavLink>
+      <NavLink
+        to="/add_dog"
+        activeStyle={style}
+      >
+        Add Dog
       </NavLink>
       {user ?
         <>

@@ -3,7 +3,8 @@ import { DogsContext } from '../context/dogs';
 
 function NewDogForm() {
   const [url, setUrl] = useState("")
-  const { dogs } = useContext(DogsContext)
+  const [errors, setErrors] = useState([])
+  const { dogs, setDogs } = useContext(DogsContext)
 
   function handleChange(e) {
     setUrl(e.target.value);
@@ -17,16 +18,29 @@ function NewDogForm() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(url)
+      body: JSON.stringify({ url: url })
     })
-      .then(r => r.json())
-      .then(data => console.log(data));
+      .then(r => {
+        if (r.ok) {
+          r.json()
+            .then(data => {
+              setDogs([...dogs, data])
+              setErrors("Dog Added!")
+            });
+        } else {
+          r.json()
+            .then(err => setErrors(err.errors))
+        }
+      })
+
   }
 
   return (
     <form onSubmit={handleSubmit}>
       <input type="url" onChange={handleChange} value={url} placeholder='url'></input>
       <input type="submit" value="Add Dog"></input>
+      <br></br>
+      {errors ? <small>{errors}</small> : null}
     </form>
   );
 }

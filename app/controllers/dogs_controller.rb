@@ -15,11 +15,8 @@ class DogsController < ApplicationController
       str += rand(65...90).chr 
     end
 
-    byebug
+    new_dog = {"url": params[:url], "dogid": str}
 
-    new_dog = dog_params.merge!(dogid: str)
-
-    byebug
     dog = Dog.create!(new_dog)
 
     if dog.valid?
