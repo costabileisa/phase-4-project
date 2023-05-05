@@ -16,7 +16,13 @@ class UserDogsController < ApplicationController
     top_dogs = tally.sort_by { |dog_id, count| -count }.take(5).to_h
     render json: { user_dogs: UserDog.all, tally: tally, top_dogs: top_dogs }
   end
-  
+
+  def update
+    user_dog = UserDog.find(params[:id])
+    user_dog.update(name: params[:name])
+
+    render json: user_dog, status: :ok
+  end
 
   def destroy
     user = User.find(session[:user_id])

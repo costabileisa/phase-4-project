@@ -18,7 +18,7 @@ function App() {
   const history = useHistory();
 
   const { user, setUser } = useContext(UserContext);
-  const { setDogs } = useContext(DogsContext)
+  const { dogs, setDogs } = useContext(DogsContext)
 
   const [errors, setErrors] = useState([])
 
@@ -36,8 +36,6 @@ function App() {
         }
       });
   }, []);
-
-  console.log(user)
 
   useEffect(() => {
     fetch("/dogs", {
