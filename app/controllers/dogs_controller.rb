@@ -29,9 +29,7 @@ class DogsController < ApplicationController
 
   def update
     dog = Dog.find(params[:id])
-    if dog.update({
-      url: params[:url]
-    })
+    if dog.update(dog_params)
       render json: dog
     else
       render json: { errors: dog.errors.full_messages }, status: :unprocessable_entity
@@ -47,7 +45,7 @@ class DogsController < ApplicationController
   private
 
   def dog_params
-    params.require(:dog).permit(:url)
+    params.permit(:url)
   end
 
   def authenticate_user
