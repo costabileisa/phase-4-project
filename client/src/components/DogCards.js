@@ -5,10 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
 import { UserContext } from '../context/user';
+import { DogsContext } from "../context/dogs"
 
-function DogCards({ dogs }) {
+
+function DogCards() {
   const [errors, setErrors] = useState([])
   const { user, setUser } = useContext(UserContext);
+  const { dogs } = useContext(DogsContext)
   const itemData = dogs;
 
   const handleLike = (e) => {

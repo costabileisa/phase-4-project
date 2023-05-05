@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :authenticate_user, only: [:create]
+  before_action :authenticate_user, except: [:create]
 
   def index
     render json: User.all, include: :dogs
@@ -44,5 +44,9 @@ class UsersController < ApplicationController
 
   def user_params
     params.permit(:username, :password, :password_confirmation)
+  end
+
+  def authenticate_user
+    render json: { error: "Unauthorized" }, status: 401 unless session[:user_id]
   end
 end

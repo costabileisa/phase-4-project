@@ -11,15 +11,18 @@ import AllUsers from './AllUsers';
 import UserDogs from './UserDogs'
 
 import { UserContext } from "../context/user";
+import { DogsContext } from '../context/dogs';
 
 function App() {
   const history = useHistory();
 
   const { user, setUser } = useContext(UserContext);
+  const { setDogs } = useContext(DogsContext)
 
   const [errors, setErrors] = useState([])
 
   console.log("Errors:", errors)
+
   useEffect(() => {
     fetch("/me")
     .then((r) => {
@@ -32,6 +35,21 @@ function App() {
       }
     });
   }, []);
+
+  useEffect(() => {
+    fetch("/dogs", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    .then(r => {
+      if (r.ok) {
+        r.json()
+        .then(d => setDogs(d))
+      }
+    })
+  }, [])
 
   function onLogout() {
     setUser(null)

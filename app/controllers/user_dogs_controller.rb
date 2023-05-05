@@ -11,6 +11,13 @@ class UserDogsController < ApplicationController
     end
   end
 
+  def index
+    tally = UserDog.group(:dog_id).count
+    top_dogs = tally.sort_by { |dog_id, count| -count }.take(5).to_h
+    render json: { user_dogs: UserDog.all, tally: tally, top_dogs: top_dogs }
+  end
+  
+
   def destroy
     user = User.find(session[:user_id])
     dog = user.dogs.find_by(dogid: params[:id]).id
