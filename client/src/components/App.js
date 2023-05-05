@@ -9,6 +9,7 @@ import Dogs from "./Dogs"
 import Profile from "./Profile"
 import AllUsers from './AllUsers';
 import UserDogs from './UserDogs'
+import Dog from "./Dog"
 
 import { UserContext } from "../context/user";
 import { DogsContext } from '../context/dogs';
@@ -18,7 +19,7 @@ function App() {
   const history = useHistory();
 
   const { user, setUser } = useContext(UserContext);
-  const { dogs, setDogs } = useContext(DogsContext)
+  const { setDogs } = useContext(DogsContext)
 
   const [errors, setErrors] = useState([])
 
@@ -70,8 +71,11 @@ function App() {
           <Route exact path="/">
             <Home />
           </Route>
-          <Route path="/dogs">
+          <Route exact path="/dogs">
             <Dogs />
+          </Route>
+          <Route path='/dogs/:id'>
+            <Dog />
           </Route>
           <Route path="/profile">
             <Profile />

@@ -7,7 +7,8 @@ class UserDogsController < ApplicationController
       render json: { errors: ["You've already favorited this dog! Please click on a different one."] }, status: :unprocessable_entity
     else
       user.dogs << dog
-      render json: user.dogs, status: :created
+      data = user.user_dogs.last
+      render json: data, status: :created
     end
   end
 

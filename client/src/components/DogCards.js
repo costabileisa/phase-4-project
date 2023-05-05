@@ -3,6 +3,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useHistory } from 'react-router-dom';
 
 import { UserContext } from '../context/user';
 import { DogsContext } from "../context/dogs"
@@ -10,8 +11,11 @@ import { DogsContext } from "../context/dogs"
 
 function DogCards() {
   const [errors, setErrors] = useState([])
+
   const { user, setUser } = useContext(UserContext);
-  const { dogs, setDogs } = useContext(DogsContext)
+  const { dogs } = useContext(DogsContext)
+
+  const history = useHistory()
 
   if (errors.length > 0) console.log("Errors:", errors)
 
@@ -31,9 +35,9 @@ function DogCards() {
       .then(r => {
         if (r.ok) {
           r.json()
-            .then(updatedDogs => {
-              console.log(updatedDogs)
-              setUser(() => ({...user, dogs: updatedDogs}));
+            .then(newDog => {
+              let savedDog = dogs.find((dog) => dog.id === newDog.dog_id)
+              setUser(() => ({...user, user_dogs: [...user.user_dogs, newDog], dogs: [...user.dogs, savedDog]}));
               e.target.style.color = "red";
             })
         } else {
@@ -44,16 +48,7 @@ function DogCards() {
   };
 
   function handleClick(e) {
-    const newDogs = dogs.filter(dog => parseInt(e.target.id) !== dog.id)
-    const newUserDogs = user.dogs.filter(dog => parseInt(e.target.id) !== dog.id)
-    const newUserDogsAssociations = user.user_dogs.filter(userDog => parseInt(userDog.dog_id) !== parseInt(e.target.id))
-    fetch(`/dogs/${e.target.id}`, {
-      method: "DELETE"
-    })
-    .then(() => {
-      setDogs(() => newDogs)
-      setUser(() => ({...user, dogs: newUserDogs, user_dogs: newUserDogsAssociations}))
-    })
+    history.push(`/dogs/${e.target.id}`)
   }
 
   return (
@@ -84,12 +79,12 @@ function DogCards() {
                     ? { color: "red" }
                     : { color: "inherit" }
                 }
-              />            
+              />
             </IconButton>
           </ImageListItem>
         )
       })
-      : null
+        : null
       }
     </ImageList>
   );

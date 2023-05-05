@@ -1,4 +1,5 @@
 class DogsController < ApplicationController
+  before_action :authenticate_user, only: [:index, :show]
 
   def index
     render json: Dog.all
@@ -28,7 +29,9 @@ class DogsController < ApplicationController
 
   def update
     dog = Dog.find(params[:id])
-    if dog.update(dog_params)
+    if dog.update({
+      url: params[:url]
+    })
       render json: dog
     else
       render json: { errors: dog.errors.full_messages }, status: :unprocessable_entity
@@ -45,5 +48,9 @@ class DogsController < ApplicationController
 
   def dog_params
     params.require(:dog).permit(:url)
+  end
+
+  def authenticate_user
+    render json: { error: "Unauthorized" }, status: 401 unless session[:user_id]
   end
 end
