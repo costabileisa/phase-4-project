@@ -17,7 +17,7 @@ function Dog() {
       .then(data => {
         setUrl(data.url)
       })
-  }, [])
+  }, [id])
 
   function handleSubmit(e) {
     e.preventDefault()
@@ -54,7 +54,7 @@ function Dog() {
 
   return (
     <div className="dog">
-      {url ? <img src={url} /> : null}
+      {url ? <img src={url} alt="dog" /> : null}
       <button onClick={handleClick}>Delete Dog</button>
       <form id={id} onSubmit={handleSubmit}>
         <input id={id} value={url} onChange={handleChange} type="url" />

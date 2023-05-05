@@ -56,7 +56,7 @@ function UserDogs() {
         dog = dogs ? dogs.find(dog => parseInt(dog.id) === parseInt(userDog.dog_id)) : dog
         return (
           <div key={userDog.id}>
-            <img onClick={e => handleClick(e)} id={userDog.id} title={dogs ? dog.id : null} src={dogs ? dog.url : ""} alt="image from https://thedogapi.com/" />
+            <img onClick={e => handleClick(e)} id={userDog.id} title={dogs ? dog.id : null} src={dogs ? dog.url : ""} alt="dog from https://thedogapi.com/" />
             <input onChange={handleChange} type="text" value={userDog.name} id={userDog.id} placeholder="Name" disabled={disabled} />
           </div>
         )

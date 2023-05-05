@@ -36,7 +36,7 @@ function App() {
             .then(err => setErrors(err.errors))
         }
       });
-  }, []);
+  }, [setUser]);
 
   useEffect(() => {
     fetch("/dogs", {
@@ -51,7 +51,7 @@ function App() {
             .then(d => setDogs(d))
         }
       })
-  }, [])
+  }, [setDogs])
 
   function onLogout() {
     setUser(null)

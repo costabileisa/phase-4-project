@@ -52,7 +52,7 @@ function DogCards() {
   }
 
   return (
-    <ImageList sx={{ width: "100%", height: "500px" }} cols={5} rowHeight={200}>
+    <ImageList sx={{ width: "100%", height: "500px" }} cols={5} rowHeight={200} >
       {dogs ? dogs.map((dog) => {
         return (
           <ImageListItem key={dog.id}>
@@ -84,7 +84,7 @@ function DogCards() {
           </ImageListItem>
         )
       })
-        : null
+        : <ImageListItem />
       }
     </ImageList>
   );

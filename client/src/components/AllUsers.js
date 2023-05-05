@@ -32,7 +32,7 @@ function AllUsers() {
       <h1>All Current Users</h1>
       {allUsers ? allUsers.map(user => <p key={user.username}>{user.username}</p>) : null}
       <h1>Top 5 Most Popular Dogs</h1>
-      {topDogUrls.map(url => <img key={url} src={url} style={{width:"1/5", height: "auto"}} />)}
+      {topDogUrls.map(url => <img key={url} alt="popular dog" src={url} style={{width:"1/5", height: "auto"}} />)}
     </div>
   )
 }
