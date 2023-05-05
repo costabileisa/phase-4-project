@@ -11,7 +11,7 @@ import { DogsContext } from "../context/dogs"
 function DogCards() {
   const [errors, setErrors] = useState([])
   const { user, setUser } = useContext(UserContext);
-  const { dogs } = useContext(DogsContext)
+  const { dogs, setDogs } = useContext(DogsContext)
 
   if (errors.length > 0) console.log("Errors:", errors)
 
@@ -43,12 +43,26 @@ function DogCards() {
       })
   };
 
+  function handleClick(e) {
+    const newDogs = dogs.filter(dog => parseInt(e.target.id) !== dog.id)
+    const newUserDogs = user.dogs.filter(dog => parseInt(e.target.id) !== dog.id)
+    const newUserDogsAssociations = user.user_dogs.filter(userDog => parseInt(userDog.dog_id) !== parseInt(e.target.id))
+    fetch(`/dogs/${e.target.id}`, {
+      method: "DELETE"
+    })
+    .then(() => {
+      setDogs(() => newDogs)
+      setUser(() => ({...user, dogs: newUserDogs, user_dogs: newUserDogsAssociations}))
+    })
+  }
+
   return (
     <ImageList sx={{ width: "100%", height: "500px" }} cols={5} rowHeight={200}>
       {dogs ? dogs.map((dog) => {
         return (
           <ImageListItem key={dog.id}>
             <img
+              onClick={handleClick}
               src={`${dog.url}?w=164&h=164&fit=crop&auto=format`}
               srcSet={`${dog.url}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
               alt={dog.url}
