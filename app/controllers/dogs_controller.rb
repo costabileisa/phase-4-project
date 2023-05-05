@@ -1,5 +1,5 @@
 class DogsController < ApplicationController
-  before_action :authenticate_user, only: [:index, :show]
+  before_action :authenticate_user, except: [:index, :show]
 
   def index
     render json: Dog.all
