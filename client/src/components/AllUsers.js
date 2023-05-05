@@ -9,30 +9,32 @@ function AllUsers() {
 
 
   for (const id in userDogs.top_dogs) {
-    const foundDog = dogs.find(dog => dog.id === parseInt(id))
-    if (foundDog) {
-      topDogUrls.push(foundDog.url)
+    if (dogs) {
+      const foundDog = dogs.find(dog => dog.id === parseInt(id))
+      if (foundDog) {
+        topDogUrls.push(foundDog.url)
+      }
     }
-  }  
+  }
 
   useEffect(() => {
     fetch("/users")
-    .then(r => r.json())
-    .then(d => setAllUsers(d))
+      .then(r => r.json())
+      .then(d => setAllUsers(d))
   }, [])
 
   useEffect(() => {
     fetch("/user_dogs")
-    .then(r => r.json())
-    .then(d => setUserDogs(d))
+      .then(r => r.json())
+      .then(d => setUserDogs(d))
   }, [])
 
-  return(
+  return (
     <div className="all-users">
       <h1>All Current Users</h1>
       {allUsers ? allUsers.map(user => <p key={user.username}>{user.username}</p>) : null}
       <h1>Top 5 Most Popular Dogs</h1>
-      {topDogUrls.map(url => <img key={url} alt="popular dog" src={url} style={{width:"1/5", height: "auto"}} />)}
+      {topDogUrls.map(url => <img key={url} alt="popular dog" src={url} style={{ width: "1/5", height: "auto" }} />)}
     </div>
   )
 }

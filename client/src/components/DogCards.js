@@ -17,7 +17,7 @@ function DogCards() {
 
   const history = useHistory()
 
-  if (errors.length > 0) console.log("Errors:", errors)
+  console.log("Errors:", errors)
 
   const handleLike = (e) => {
     const imageId = e.target.parentNode.parentNode.previousSibling.id;
