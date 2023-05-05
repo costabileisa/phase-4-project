@@ -7,7 +7,7 @@ function Dogs() {
   const history = useHistory()
 
   function handleClick() {
-    history.push("/add_dog")
+    history.push("/dogs/new")
   }
 
   return (

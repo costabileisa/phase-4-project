@@ -4,7 +4,11 @@ Rails.application.routes.draw do
   get "/me", to: "users#show"
   
   resources :users
-  resources :dogs
+  
+  resources :dogs do
+    get "/new", to: "dogs#create"
+  end
+
   resources :user_dogs, only: [:create, :destroy, :index, :update]
 
   # Routing logic: fallback requests for React Router.

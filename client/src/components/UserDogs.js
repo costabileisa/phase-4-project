@@ -3,12 +3,17 @@ import { DogsContext } from "../context/dogs"
 
 import { UserContext } from "../context/user"
 
-function UserDogs() {
-  const [disabled, setDisabled] = useState(true)
-  const [dogNames, setDogNames] = useState({})
-
-  const { user, setUser } = useContext(UserContext)
+function UserDogs() {  
   const { dogs } = useContext(DogsContext)
+  const { user, setUser } = useContext(UserContext)
+
+  const dogNameObj = user.user_dogs.reduce((a, b) => Object.assign({...a, [b.id]: b.name}), {})
+
+  const [disabled, setDisabled] = useState(true)
+  const [dogNames, setDogNames] = useState(dogNameObj)
+
+
+
 
   function handleClick(e) {
     const updatedDogs = user.dogs.filter(dog => dog.id !== parseInt(e.target.title))
@@ -44,6 +49,8 @@ function UserDogs() {
     setDogNames({ ...dogNames, [e.target.id]: e.target.value })
   }
 
+  console.log(dogNames)
+
   return (
     <div className="user-dogs">
       <h1>{user.username}'s Dogs</h1>
@@ -57,7 +64,7 @@ function UserDogs() {
         return (
           <div key={userDog.id}>
             <img onClick={e => handleClick(e)} id={userDog.id} title={dogs ? dog.id : null} src={dogs ? dog.url : ""} alt="dog from https://thedogapi.com/" />
-            <input onChange={handleChange} type="text" value={userDog.name} id={userDog.id} placeholder="Name" disabled={disabled} />
+            <input onChange={handleChange} type="text" value={dogNames[userDog.id]} id={userDog.id} placeholder="Name" disabled={disabled} />
           </div>
         )
       }

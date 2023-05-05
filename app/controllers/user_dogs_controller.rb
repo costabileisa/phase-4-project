@@ -19,10 +19,6 @@ class UserDogsController < ApplicationController
     render json: { user_dogs: UserDog.all, tally: tally, top_dogs: top_dogs }
   end
 
-  def show
-    userdog = UserDog.find(params[:id])
-  end
-
   def update
     user_dog = UserDog.find(params[:id])
     user_dog.update(name: params[:name])
@@ -32,8 +28,9 @@ class UserDogsController < ApplicationController
 
   def destroy
     user_dog = UserDog.find(params[:id])
-    user_dog.destroy
-
+    if session[:user_id] = user_dog.user_id
+      user_dog.destroy
+    end
     head :no_content
   end
 

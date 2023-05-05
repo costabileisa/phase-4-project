@@ -13,7 +13,7 @@ import Dog from "./Dog"
 
 import { UserContext } from "../context/user";
 import { DogsContext } from '../context/dogs';
-import NewDogForm from './AddDog';
+import NewDogForm from './NewDogForm';
 
 function App() {
   const history = useHistory();
@@ -49,6 +49,9 @@ function App() {
         if (r.ok) {
           r.json()
             .then(d => setDogs(d))
+        } else {
+          r.json()
+          .then(err => setErrors(err))
         }
       })
   }, [setDogs])
@@ -63,6 +66,7 @@ function App() {
     history.push("/")
   }
 
+  // refactor?
   if (user) {
     return (
       <div className="App">
@@ -74,7 +78,10 @@ function App() {
           <Route exact path="/dogs">
             <Dogs />
           </Route>
-          <Route path='/dogs/:id'>
+          <Route exact path="/dogs/new">
+            <NewDogForm />
+          </Route>
+          <Route exact path='/dogs/:id'>
             <Dog />
           </Route>
           <Route path="/profile">
@@ -85,9 +92,6 @@ function App() {
           </Route>
           <Route path="/users">
             <AllUsers />
-          </Route>
-          <Route path="/add_dog">
-            <NewDogForm />
           </Route>
         </Switch>
       </div>

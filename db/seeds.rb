@@ -9,7 +9,6 @@ def get_dogs
 
   dogs.each do |dog|
     Dog.create!(
-      dogid: dog['id'],
       url: dog['url']
     )
   end

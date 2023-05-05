@@ -22,14 +22,15 @@ function DogCards() {
   const handleLike = (e) => {
     const imageId = e.target.parentNode.parentNode.previousSibling.id;
 
-    fetch("/user_dogs", {
+    fetch(`/user_dogs`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
         user_id: parseInt(user.id),
-        dog_id: parseInt(imageId)
+        dog_id: parseInt(imageId),
+        name: "I have no name"
       })
     })
       .then(r => {

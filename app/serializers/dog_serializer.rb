@@ -1,5 +1,5 @@
 class DogSerializer < ActiveModel::Serializer
-  attributes :id, :url, :dogid
+  attributes :id, :url
 
   has_many :users
 end
