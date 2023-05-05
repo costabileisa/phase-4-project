@@ -18,6 +18,8 @@ function UserDogs() {
     })
   }  
 
+  console.log(user.dogs)
+
   return (
     <div className="user-dogs">
       <h1>{user.username}'s Dogs</h1>

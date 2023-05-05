@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   before_action :authenticate_user, except: [:create]
 
   def index
-    render json: User.all, include: :dogs
+    render json: User.all
   end
 
   def create
@@ -17,7 +17,7 @@ class UsersController < ApplicationController
   def show
     user = User.find(session[:user_id])
     if user
-      render json: user, include: :dogs
+      render json: user
     else
       render json: { error: "Not authorized" }, status: :unauthorized
     end
@@ -29,7 +29,7 @@ class UsersController < ApplicationController
       username: params[:username],
       bio: params[:bio]
     )
-    render json:user, status: :ok
+    render json: user, status: :ok
   end
 
   def destroy
