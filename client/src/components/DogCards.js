@@ -14,6 +14,8 @@ function DogCards() {
   const { dogs } = useContext(DogsContext)
   const itemData = dogs;
 
+  if (errors.length > 0) console.log("Errors:", errors)
+
   const handleLike = (e) => {
     const imageId = e.target.parentNode.parentNode.previousSibling.id;
 
@@ -36,12 +38,10 @@ function DogCards() {
             })
         } else {
           r.json()
-            .then(err => setErrors(err.errors))
+            .then(err => setErrors(() => err.errors))
         }
       })
   };
-
-  console.log(errors)
 
   return (
     <ImageList sx={{ width: "100%", height: "500px" }} cols={5} rowHeight={200}>

@@ -21,7 +21,7 @@ function App() {
 
   const [errors, setErrors] = useState([])
 
-  console.log("Errors:", errors)
+  if (errors.length > 0) console.log("Errors:", errors)
 
   useEffect(() => {
     fetch("/me")

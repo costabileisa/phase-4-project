@@ -3,8 +3,8 @@ Rails.application.routes.draw do
   delete "/logout", to: "sessions#destroy"
   get "/me", to: "users#show"
   
-  resources :users, only: [:index, :show, :create, :update, :destroy]
-  resources :dogs, only: [:index]
+  resources :users
+  resources :dogs
   resources :user_dogs, only: [:create, :destroy, :index]
 
   # Routing logic: fallback requests for React Router.
