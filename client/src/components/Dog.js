@@ -30,7 +30,9 @@ function Dog() {
     })
       .then(r => r.json())
       .then(newDog => {
-        const newDogs = dogs.map(dog => dog.id === e.target.id ? newDog : dog)
+        const newDogs = dogs.map(dog => {
+          return dog.id === parseInt(id) ? newDog : dog
+        })
         setDogs(newDogs)
       })
   }
