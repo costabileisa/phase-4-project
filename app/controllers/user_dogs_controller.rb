@@ -2,7 +2,7 @@ class UserDogsController < ApplicationController
   before_action :authenticate_user, except: [:index]
 
   def create
-    user = User.find(params[:user_id])
+    user = User.find(session[:user_id])
     dog = Dog.find(params[:dog_id])
 
     if user.dogs.include?(dog)
