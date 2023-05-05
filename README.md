@@ -15,7 +15,7 @@ To install the Dog App, please follow these steps:
 
 ## Usage
 
-To use the Dog App, simply open your web browser and navigate to `http://localhost:3000`. You will be taken to the home page, where you can view a list of dogs.
+To use the Dog App, simply open your web browser and navigate to `http://localhost:4000`. You will be taken to the home page, where you can view a list of dogs.
 
 To add a new dog, click on the "Add Dog" button. You will be taken to a form where you can enter the dog's name, breed, and image URL. Click the "Submit" button to add the dog to the list.
 
